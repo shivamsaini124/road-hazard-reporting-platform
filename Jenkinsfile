@@ -50,16 +50,16 @@ pipeline {
                         kubectl apply -f deployment.yaml
 
                         echo "Waiting for deployment..."
-                        kubectl rollout status deployment/shivam-profile
+                        kubectl rollout status deployment/road-hazard-reporting-platform
 
                         echo "Deployment status:"
-                        kubectl get deployment shivam-profile
+                        kubectl get deployment road-hazard-reporting-platform
 
                         echo "Pod status:"
-                        kubectl get pods -l app=shivam-profile
+                        kubectl get pods -l app=road-hazard-reporting-platform
 
                         echo "Service status:"
-                        kubectl get service shivam-profile-service
+                        kubectl get service road-hazard-reporting-platform-service
                     '''
                 }
             }
