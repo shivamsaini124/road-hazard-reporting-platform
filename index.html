@@ -12,15 +12,25 @@
     header p { margin: 0; color: #dbeafe; }
     main { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
     h2 { margin-top: 0; }
-    .complaint { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+    .summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0 24px; }
+    .metric { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 16px; }
+    .metric span { display: block; color: #64748b; font-size: 14px; }
+    .metric strong { display: block; font-size: 28px; margin-top: 6px; }
+    .filters { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    select { font: inherit; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
+    .complaint { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 18px; margin-bottom: 14px; display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
     .complaint h3 { margin: 0 0 10px; }
     .details { color: #4b5563; line-height: 1.7; }
-    .status { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; }
-    .reported { background: #fee2e2; color: #991b1b; }
-    .progress { background: #fef3c7; color: #92400e; }
-    .resolved { background: #dcfce7; color: #166534; }
+    .pill { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; }
+    .category-pothole { background: #ffedd5; color: #9a3412; }
+    .category-streetlight { background: #ede9fe; color: #5b21b6; }
+    .category-waterlogging { background: #e0f2fe; color: #075985; }
+    .status-reported { background: #fee2e2; color: #991b1b; }
+    .status-in-progress { background: #fef3c7; color: #92400e; }
+    .status-resolved { background: #dcfce7; color: #166534; }
+    .empty { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 24px; color: #64748b; text-align: center; }
     footer { text-align: center; padding: 18px; color: #64748b; font-size: 14px; }
-    @media (max-width: 600px) { header { padding: 20px 16px; } }
+    @media (max-width: 650px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   </style>
 </head>
 <body>
@@ -30,55 +40,92 @@
   </header>
 
   <main>
-    <h2>Reported Road Complaints</h2>
-    <p>Review reported road hazards and check their latest resolution status.</p>
+    <h2>Complaint Status Summary</h2>
+    <section class="summary" aria-label="Complaint status summary">
+      <div class="metric"><span>Total complaints</span><strong id="total-count">5</strong></div>
+      <div class="metric"><span>Reported</span><strong id="reported-count">0</strong></div>
+      <div class="metric"><span>In progress</span><strong id="progress-count">0</strong></div>
+      <div class="metric"><span>Resolved</span><strong id="resolved-count">0</strong></div>
+    </section>
 
-    <article class="complaint">
-      <h3>Complaint ID: RH-1001 — Pothole</h3>
-      <div class="details">
-        <div><strong>Affected location:</strong> MG Road, near City Library</div>
-        <div><strong>Report date:</strong> 2026-10-12</div>
-        <div><strong>Resolution status:</strong> <span class="status progress">In Progress</span></div>
+    <section class="filters">
+      <div>
+        <h2 style="margin:0 0 5px">Reported Road Complaints</h2>
+        <span style="color:#64748b">Choose a category to filter the complaints below.</span>
       </div>
-    </article>
+      <label for="category-filter">Category:
+        <select id="category-filter">
+          <option value="all">All categories</option>
+          <option value="pothole">Potholes</option>
+          <option value="streetlight">Damaged streetlights</option>
+          <option value="waterlogging">Waterlogging</option>
+        </select>
+      </label>
+    </section>
 
-    <article class="complaint">
-      <h3>Complaint ID: RH-1002 — Damaged Streetlight</h3>
-      <div class="details">
-        <div><strong>Affected location:</strong> Sector 4, Community Park crossing</div>
-        <div><strong>Report date:</strong> 2026-10-13</div>
-        <div><strong>Resolution status:</strong> <span class="status reported">Reported</span></div>
-      </div>
-    </article>
-
-    <article class="complaint">
-      <h3>Complaint ID: RH-1003 — Waterlogging</h3>
-      <div class="details">
-        <div><strong>Affected location:</strong> Station Road underpass</div>
-        <div><strong>Report date:</strong> 2026-10-14</div>
-        <div><strong>Resolution status:</strong> <span class="status progress">In Progress</span></div>
-      </div>
-    </article>
-
-    <article class="complaint">
-      <h3>Complaint ID: RH-1004 — Pothole</h3>
-      <div class="details">
-        <div><strong>Affected location:</strong> Civil Lines, opposite Bus Stop 2</div>
-        <div><strong>Report date:</strong> 2026-10-15</div>
-        <div><strong>Resolution status:</strong> <span class="status resolved">Resolved</span></div>
-      </div>
-    </article>
-
-    <article class="complaint">
-      <h3>Complaint ID: RH-1005 — Damaged Streetlight</h3>
-      <div class="details">
-        <div><strong>Affected location:</strong> Green Avenue, Lane 7</div>
-        <div><strong>Report date:</strong> 2026-10-16</div>
-        <div><strong>Resolution status:</strong> <span class="status resolved">Resolved</span></div>
-      </div>
-    </article>
+    <section id="complaint-list" aria-live="polite"></section>
   </main>
 
   <footer>Sample demonstration records · Not connected to a live municipal system</footer>
+
+  <script>
+    const complaints = [
+      { id: "RH-1001", category: "pothole", location: "MG Road, near City Library", date: "2026-10-12", status: "in-progress" },
+      { id: "RH-1002", category: "streetlight", location: "Sector 4, Community Park crossing", date: "2026-10-13", status: "reported" },
+      { id: "RH-1003", category: "waterlogging", location: "Station Road underpass", date: "2026-10-14", status: "in-progress" },
+      { id: "RH-1004", category: "pothole", location: "Civil Lines, opposite Bus Stop 2", date: "2026-10-15", status: "resolved" },
+      { id: "RH-1005", category: "streetlight", location: "Green Avenue, Lane 7", date: "2026-10-16", status: "resolved" }
+    ];
+
+    const categoryLabels = {
+      pothole: "Pothole",
+      streetlight: "Damaged Streetlight",
+      waterlogging: "Waterlogging"
+    };
+
+    function titleCase(value) {
+      return value.replace("-", " ").replace(/\b\w/g, letter => letter.toUpperCase());
+    }
+
+    function updateSummary() {
+      document.getElementById("total-count").textContent = complaints.length;
+      document.getElementById("reported-count").textContent = complaints.filter(c => c.status === "reported").length;
+      document.getElementById("progress-count").textContent = complaints.filter(c => c.status === "in-progress").length;
+      document.getElementById("resolved-count").textContent = complaints.filter(c => c.status === "resolved").length;
+    }
+
+    function renderComplaints() {
+      const selectedCategory = document.getElementById("category-filter").value;
+      const filtered = complaints.filter(c => selectedCategory === "all" || c.category === selectedCategory);
+      const list = document.getElementById("complaint-list");
+      list.replaceChildren();
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty">No complaints found for this category.</div>';
+        return;
+      }
+
+      filtered.forEach(complaint => {
+        const article = document.createElement("article");
+        article.className = "complaint";
+        article.innerHTML = `
+          <div>
+            <h3>Complaint ID: ${complaint.id} — ${categoryLabels[complaint.category]}</h3>
+            <div class="details">
+              <div><strong>Affected location:</strong> ${complaint.location}</div>
+              <div><strong>Report date:</strong> ${complaint.date}</div>
+              <div><strong>Resolution status:</strong> <span class="pill status-${complaint.status}">${titleCase(complaint.status)}</span></div>
+            </div>
+          </div>
+          <div><span class="pill category-${complaint.category}">${categoryLabels[complaint.category]}</span></div>
+        `;
+        list.appendChild(article);
+      });
+    }
+
+    document.getElementById("category-filter").addEventListener("change", renderComplaints);
+    updateSummary();
+    renderComplaints();
+  </script>
 </body>
 </html>
