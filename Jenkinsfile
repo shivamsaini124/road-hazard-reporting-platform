@@ -13,7 +13,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build --pull=false -t $DOCKER_IMAGE:latest .'
+                sh 'docker build --pull=false -t $DOCKER_IMAGE:faulty .'
             }
         }
 
