@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Road Hazard Reporting Portal</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f3f6fa; color: #1f2937; }
+    header { background: #16324f; color: white; padding: 24px; }
+    header h1 { margin: 0 0 8px; }
+    header p { margin: 0; color: #dbeafe; }
+    main { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+    h2 { margin-top: 0; }
+    .complaint { background: white; border: 1px solid #dbe3ec; border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+    .complaint h3 { margin: 0 0 10px; }
+    .details { color: #4b5563; line-height: 1.7; }
+    .status { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; }
+    .reported { background: #fee2e2; color: #991b1b; }
+    .progress { background: #fef3c7; color: #92400e; }
+    .resolved { background: #dcfce7; color: #166534; }
+    footer { text-align: center; padding: 18px; color: #64748b; font-size: 14px; }
+    @media (max-width: 600px) { header { padding: 20px 16px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Road Hazard Reporting Portal</h1>
+    <p>Municipal Corporation · Citizen complaint tracking</p>
+  </header>
+
+  <main>
+    <h2>Reported Road Complaints</h2>
+    <p>Review reported road hazards and check their latest resolution status.</p>
+
+    <article class="complaint">
+      <h3>Complaint ID: RH-1001 — Pothole</h3>
+      <div class="details">
+        <div><strong>Affected location:</strong> MG Road, near City Library</div>
+        <div><strong>Report date:</strong> 2026-10-12</div>
+        <div><strong>Resolution status:</strong> <span class="status progress">In Progress</span></div>
+      </div>
+    </article>
+
+    <article class="complaint">
+      <h3>Complaint ID: RH-1002 — Damaged Streetlight</h3>
+      <div class="details">
+        <div><strong>Affected location:</strong> Sector 4, Community Park crossing</div>
+        <div><strong>Report date:</strong> 2026-10-13</div>
+        <div><strong>Resolution status:</strong> <span class="status reported">Reported</span></div>
+      </div>
+    </article>
+
+    <article class="complaint">
+      <h3>Complaint ID: RH-1003 — Waterlogging</h3>
+      <div class="details">
+        <div><strong>Affected location:</strong> Station Road underpass</div>
+        <div><strong>Report date:</strong> 2026-10-14</div>
+        <div><strong>Resolution status:</strong> <span class="status progress">In Progress</span></div>
+      </div>
+    </article>
+
+    <article class="complaint">
+      <h3>Complaint ID: RH-1004 — Pothole</h3>
+      <div class="details">
+        <div><strong>Affected location:</strong> Civil Lines, opposite Bus Stop 2</div>
+        <div><strong>Report date:</strong> 2026-10-15</div>
+        <div><strong>Resolution status:</strong> <span class="status resolved">Resolved</span></div>
+      </div>
+    </article>
+
+    <article class="complaint">
+      <h3>Complaint ID: RH-1005 — Damaged Streetlight</h3>
+      <div class="details">
+        <div><strong>Affected location:</strong> Green Avenue, Lane 7</div>
+        <div><strong>Report date:</strong> 2026-10-16</div>
+        <div><strong>Resolution status:</strong> <span class="status resolved">Resolved</span></div>
+      </div>
+    </article>
+  </main>
+
+  <footer>Sample demonstration records · Not connected to a live municipal system</footer>
+</body>
+</html>
